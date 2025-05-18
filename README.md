@@ -1,67 +1,113 @@
-# Supply Chain Simulator
+# 🏬 Synthetic Supply Chain Data Generator
 
-Synthetic data generator for a high-end sports shoe and clothing retailer in France. The simulator creates realistic datasets for supply chain management, including:
+This project generates synthetic supply chain data for a high-end **shoe and clothing retailer** operating in **France**. It simulates:
 
-- Point-of-sale (POS) transaction data
-- SKU-level warehouse inventory data
-- Product metadata
-- Store location and type
+- 🛍️ Daily point-of-sale (POS) transactions
+- 🏭 Daily warehouse inventory levels
+- 🧾 Product and store attributes
 
-## 📦 Features
+The dataset captures **realistic seasonality, stockouts, promotions, and supply chain lead times**, and exports the results to **CSV and SQLite** formats.
 
-- Configurable number of products and stores
-- Daily-level aggregation with seasonality patterns
-- Simulated stockouts, overstocks, and lead times
-- Outputs CSV files and a SQLite database
-- Realistic promotions and discounting patterns
+---
 
-## 🛠 Project Setup
+## 🚀 Features
 
-This project uses [uv](https://github.com/astral-sh/uv) for dependency management.
+- 🏷️ **Product metadata** with seasonal categories and pricing
+- 🏪 **100 configurable French stores**
+- 📅 **1 year of daily simulation**
+- 📈 **Seasonal demand patterns**
+- 🔁 **Inventory updates with restocking logic**
+- 📉 **Stockouts and overstocks**
+- 💸 **Promotions and discounts every 3rd weekend**
+- 🐢 **Factory lead times to warehouse (7-day delay)**
+- 💾 Outputs as **CSV files** and a **SQLite database**
 
-```bash
-# Install uv if you haven't
-pip install uv
+---
 
-# Clone the repository and install dependencies
-git clone https://github.com/your-username/supply_chain_sim.git
-cd supply_chain_simulator
-uv venv
-source .venv/bin/activate
-```
+## 📦 Installation
 
-## 🚀 Usage
-
-Data generation will be run via a CLI tool:
+Install dependencies using [`uv`](https://github.com/astral-sh/uv):
 
 ```bash
-uv run python generate_data.py \\
-    --num-products 20 \\
-    --num-stores 100 \\
-    --start-date 2024-01-01 \\
-    --end-date 2024-12-31
+uv pip install -r requirements.txt
 ```
 
-Output files:
-- `data/products.csv`
-- `data/stores.csv`
-- `data/transactions.csv`
-- `data/inventory.csv`
-- `data/supply_chain.db` (SQLite)
+---
 
-## 📂 Project Structure
+## ⚙️ How to Use
+Run the CLI script:
 
-```
-supply_chain_simulator/
-├── data/                       # Generated data (CSV & SQLite)
-├── src/                        # Source code
-│   └── supply_chain_simulator  
-│       └── generate_data.py    # Main script
-├── .gitignore
-├── pyproject.toml
-└── README.md
+```bash
+uv python src/generate_data.py --num-products 20 --num-stores 100
 ```
 
-## 📄 License
+**Optional Arguments**
+| Argument         | Default      | Description                      |
+| ---------------- | ------------ | -------------------------------- |
+| `--num-products` | `20`         | Number of unique products (SKUs) |
+| `--num-stores`   | `100`        | Number of stores in France       |
+| `--start-date`   | `2024-01-01` | Simulation start date            |
+| `--end-date`     | `2024-12-31` | Simulation end date              |
 
-MIT License
+---
+
+## 📂 Output Files
+Generated files are saved to the `data/` directory:
+
+### CSV Files
+* `products.csv` — Product catalog with attributes
+
+* `stores.csv` — List of POS store locations
+
+* `transactions.csv` — Daily sales per store and SKU
+
+* `inventory.csv` — Daily warehouse inventory per SKU
+
+### SQLite Database
+* `supply_chain.db` — Includes all four tables above
+
+---
+
+## 🗃️ Project Structure
+
+```bash
+supply_chain_sim/
+├── data/                    # Output files
+├── src/
+│   ├── generate_data.py     # CLI entry point
+│   ├── simulation.py        # Transaction + inventory simulation
+│   └── db_utils.py          # SQLite saving logic
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+---
+
+## 🔍 Highlights
+* Seasonality:
+
+    * Products are tagged for Summer or Winter demand peaks
+
+    * Simulated demand increases in those seasons
+
+* Discounts:
+
+    * Every 3rd weekend, random promotions (10–30%) drive increased sales
+
+* Stock Flow:
+
+    * Store-level restocking from warehouse when low
+
+    * Warehouse receives delayed shipments from factory (7-day lead time)
+
+---
+
+## 📌 Notes
+* All prices are in euros (€)
+
+* Store locations are in France
+
+* Promotions occur every 3rd weekend
+
+* Lead time from factory to warehouse is **7
