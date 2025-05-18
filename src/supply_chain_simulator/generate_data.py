@@ -7,6 +7,8 @@ import numpy as np
 from faker import Faker
 from datetime import datetime
 from supply_chain_simulator.db_utils import save_to_sqlite
+from supply_chain_simulator.simulation import simulate_transactions_and_inventory
+
 
 fake = Faker("fr_FR")
 np.random.seed(42)
@@ -111,13 +113,26 @@ def main():
     products_df = generate_products(args.num_products)
     stores_df = generate_stores(args.num_stores)
 
+    # Simulate transactions and warehouse inventory
+    transactions_df, inventory_df = simulate_transactions_and_inventory(
+        products_df, stores_df, args.start_date, args.end_date
+    )
+
     # Save to CSV
     save_to_csv(products_df, "data/products.csv")
     save_to_csv(stores_df, "data/stores.csv")
+    save_to_csv(transactions_df, "data/transactions.csv")
+    save_to_csv(inventory_df, "data/inventory.csv")
 
     # Save to SQLite
     save_to_sqlite(
-        "data/supply_chain.db", {"products": products_df, "stores": stores_df}
+        "data/supply_chain.db",
+        {
+            "products": products_df,
+            "stores": stores_df,
+            "transactions": transactions_df,
+            "inventory": inventory_df,
+        },
     )
 
 
