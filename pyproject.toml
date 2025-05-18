@@ -1,0 +1,21 @@
+[project]
+name = "supply-chain-simulator"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Nikolaos Mavromatis", email = "nck.mavromatis@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "faker>=37.3.0",
+    "numpy>=2.2.6",
+    "pandas>=2.2.3",
+]
+
+[project.scripts]
+supply-chain-simulator = "supply_chain_simulator:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
